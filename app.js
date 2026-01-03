@@ -9,6 +9,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const { indexRouter } = require("./routes/userRoutes.js");
 const { signUpRouter } = require("./routes/signUpRouter.js");
+const { logoutRouter } = require("./routes/logoutRouter.js");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || process.env.DATABASE_PUBLIC_URL,
@@ -28,16 +29,10 @@ app.use(
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+// App routes
 app.use(indexRouter);
 app.use(signUpRouter);
-app.get("/log-out", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-});
+app.use(logoutRouter);
 
 app.post("/sign-up", async (req, res, next) => {
   try {
