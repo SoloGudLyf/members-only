@@ -8,25 +8,28 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const { indexRouter } = require("./routes/userRoutes.js");
-
-
-
-console.log(process.env.DB);
+const { signUpRouter } = require("./routes/signUpRouter.js");
 
 const pool = new Pool({
- connectionString: process.env.DATABASE_URL || process.env.DATABASE_PUBLIC_URL
+  connectionString: process.env.DATABASE_URL || process.env.DATABASE_PUBLIC_URL,
 });
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", indexRouter);
-app.get("/sign-up", (req, res) => res.render("sign-up-form"));
+app.use(indexRouter);
+app.use(signUpRouter);
 app.get("/log-out", (req, res, next) => {
   req.logout((err) => {
     if (err) {
