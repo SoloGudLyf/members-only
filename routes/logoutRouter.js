@@ -1,9 +1,8 @@
 import { Router } from "express";
-import { logoutController } from "../controller/logoutController.js";
-
+import { logoutPage } from "../controller/logoutController.js";
 
 const logoutRouter = Router();
 
-logoutRouter.get("/log-out", logoutController)
+logoutRouter.get("/log-out", logoutPage);
 
-export {logoutRouter}
+export { logoutRouter };

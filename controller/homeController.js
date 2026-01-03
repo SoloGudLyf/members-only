@@ -1,3 +1,3 @@
-const homeController = (req, res) => res.render("index", { user: req.user });
+const homePage = (req, res) => res.render("index", { user: req.user });
 
-export { homeController };
+export { homePage };

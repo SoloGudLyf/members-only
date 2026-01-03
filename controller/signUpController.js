@@ -1,3 +1,3 @@
-const signUpController = (req, res) => res.render("sign-up-form");
+const signUpPage = (req, res) => res.render("sign-up-form");
 
-export { signUpController };
+export { signUpPage };

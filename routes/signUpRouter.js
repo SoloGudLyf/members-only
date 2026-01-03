@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { signUpController } from "../controller/signUpController.js";
+import { signUpPage } from "../controller/signUpController.js";
 
 const signUpRouter = Router();
 
-signUpRouter.get("/sign-up", signUpController);
+signUpRouter.get("/sign-up", signUpPage);
 
 export { signUpRouter };
