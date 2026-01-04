@@ -1,6 +1,8 @@
 /////// app.js
 require("dotenv").config();
 const path = require("node:path");
+const { pool } = require("./db/pool.js");
+const bcrypt = require("bcryptjs");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");

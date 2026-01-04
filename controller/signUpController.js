@@ -6,13 +6,11 @@ const signUpPost = async (req, res, next) => {
   console.log(time);
 
   try {
-    await insertUsers(
-      
-      req.body.username,
-      req.body.password,
-      time
-    );
-    res.redirect("/");
+    await insertUsers(req.body.username, req.body.password, time);
+    passport.authenticate("local", {
+      successRedirect: "/home",
+      failureRedirect: "/sign-up-form",
+    });
   } catch (err) {
     return next(err);
   }
