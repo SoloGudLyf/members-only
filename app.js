@@ -7,9 +7,10 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const { indexRouter } = require("./routes/userRoutes.js");
+const { indexRouter } = require("./routes/homeRouter.js");
 const { signUpRouter } = require("./routes/signUpRouter.js");
 const { logoutRouter } = require("./routes/logoutRouter.js");
+const { loginRouter } = require("./routes/loginRouter.js");
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -29,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(indexRouter);
 app.use(signUpRouter);
 app.use(logoutRouter);
+app.use(loginRouter);
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -70,14 +72,6 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
-
-app.post(
-  "/log-in",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
-  })
-);
 
 app.listen(3000, (error) => {
   if (error) {

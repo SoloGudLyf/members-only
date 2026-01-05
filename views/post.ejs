@@ -1,0 +1,8 @@
+<article>
+  <% if (post.username){%>
+  <h3><%=post.username%></h3>
+  <%}%> <%if(!post.username){%>
+  <h1>Anonymous</h1>
+  <%}%>
+  <p><%=post.posts%></p>
+</article>

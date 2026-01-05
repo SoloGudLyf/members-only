@@ -3,6 +3,6 @@ import { homePage } from "../controller/homeController.js";
 
 const indexRouter = Router();
 
-indexRouter.get("/", homePage);
+indexRouter.get("/home", homePage);
 
 export { indexRouter };
