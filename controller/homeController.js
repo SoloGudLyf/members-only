@@ -1,15 +1,14 @@
 import { getPosts, getPostsOnly } from "../db/query.js";
 
 const homePage = async (req, res) => {
-  const postsOnly = await getPostsOnly();
-  const posts = await getPosts();
 
   if (req.isAuthenticated()) {
-    console.log(req.sessionID);
-
-    res.render("home", { usersPosts: posts, user: true });
+    console.log(req.user);
+    const posts = await getPosts();
+    res.render("profile", { usersPosts: posts, user: req.user });
   } else {
-    res.render("home", { usersPosts: postsOnly, user: false });
+    const postsOnly = await getPostsOnly();
+    res.render("home", { usersPosts: postsOnly });
   }
 };
 
