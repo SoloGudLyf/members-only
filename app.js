@@ -11,6 +11,7 @@ const { indexRouter } = require("./routes/homeRouter.js");
 const { signUpRouter } = require("./routes/signUpRouter.js");
 const { logoutRouter } = require("./routes/logoutRouter.js");
 const { loginRouter } = require("./routes/loginRouter.js");
+const { createPostRouter } = require("./routes/createPostRouter.js");
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -31,6 +32,7 @@ app.use(indexRouter);
 app.use(signUpRouter);
 app.use(logoutRouter);
 app.use(loginRouter);
+app.use(createPostRouter);
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
