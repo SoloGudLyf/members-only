@@ -12,14 +12,13 @@ const insertUsers = async (username, password, time) => {
 
 const getPostsOnly = async () => {
   const { rows } = await pool.query("SELECT posts FROM users_posts");
-  console.log(rows);
-
   return rows;
 };
 
 const getPosts = async () => {
-  const { rows } = await pool.query("SELECT * FROM users_posts");
-  console.log(rows);
+  const { rows } = await pool.query(
+    "SELECT users.username,posts FROM users_posts JOIN users ON (users_posts.username=users.id)"
+  );
 
   return rows;
 };
