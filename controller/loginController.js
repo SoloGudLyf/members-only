@@ -5,13 +5,7 @@ const loginPage = (req, res) => {
   res.render("login");
 };
 
-const loginPost = async (req, res) => {
-  passport.authenticate("local", {
-    failureRedirect: "/log-in",
-    successRedirect: "/home",
-  });
-  res.redirect("/home");
-  const usersPosts = await getPosts();
-  res.render("home", { usersPosts });
+const loginPost = () => {
+ 
 };
 export { loginPage, loginPost };
