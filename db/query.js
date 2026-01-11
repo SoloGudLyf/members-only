@@ -2,11 +2,9 @@ import { pool } from "./pool.js";
 import bcrypt from "bcryptjs";
 
 const insertUsers = async (username, password, time) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   await pool.query(
     "INSERT INTO users (username, password,time) VALUES ($1, $2,$3)",
-    [username, hashedPassword, time]
+    [username, password, time]
   );
 };
 
@@ -29,4 +27,12 @@ const insertPost = async (id, post) => {
     post,
   ]);
 };
-export { insertUsers, getPostsOnly, getPosts, insertPost };
+
+const getUser = async (username) => {
+  const { rows } = await pool.query(
+    "SELECT username from users WHERE username=$1",
+    [username]
+  );
+  return rows;
+};
+export { insertUsers, getPostsOnly, getPosts, insertPost, getUser };

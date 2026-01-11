@@ -6,12 +6,22 @@
   </head>
   <body>
     <h1>Sign Up</h1>
+
     <form action="/sign-up" method="POST">
+      <% errors.forEach((error)=>{%> <%- include('error',{error}); %>
+      <%});%>
       <label for="username"
-        ><input type="text" name="username" id="username"
+        >Username: <input type="text" name="username" id="username"
       /></label>
-      <label for="password">Password</label>
+      <label for="password">Password: </label>
       <input id="password" name="password" type="password" />
+      <label for="passwordConfirmation"
+        >Confirm password:
+        <input
+          type="password"
+          name="passwordConfirmation"
+          id="passwordConfirmation"
+      /></label>
 
       <button type="submit">Sign Up</button>
     </form>

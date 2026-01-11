@@ -1,18 +1,34 @@
-import { insertUsers } from "../db/query.js";
+import { getUser, insertUsers } from "../db/query.js";
+import passport from "passport";
+import { validationResult } from "express-validator";
+import bcrypt from "bcryptjs";
 
-const signUpPage = (req, res) => res.render("sign-up-form");
+const signUpPage = (req, res) => res.render("sign-up-form", { errors: [] });
+
 const signUpPost = async (req, res, next) => {
-  const time = new Date();
-  console.log(time);
+  // Get validation result and log to the user
+  let errors = validationResult(req).array();
+  const userExist = await getUser(req.body.username);
+  console.log(userExist);
+  userExist[0] ? errors.push({ msg: "Username is taken" }) : errors;
+  console.log(errors);
 
+  console.log(errors);
+
+  if (!(errors.length === 0)) {
+    return res.status(400).render("sign-up-form", { errors });
+  }
+
+  // Insert User into DB and authenticate
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
   try {
-    await insertUsers(req.body.username, req.body.password, time);
+    await insertUsers(req.body.username, hashedPassword, new Date());
     passport.authenticate("local", {
       successRedirect: "/home",
-      failureRedirect: "/sign-up-form",
-    });
+      failureRedirect: "/sign-up",
+    })(req, res, next);
   } catch (err) {
-    return next(err);
+    return err;
   }
 };
 export { signUpPage, signUpPost };
