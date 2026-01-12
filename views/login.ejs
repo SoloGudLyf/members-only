@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1>please log in</h1>
+    <% errors.forEach((error)=>{%> <%- include('error',{error}); %> <%});%>
     <form action="/login" method="POST">
       <label for="username">Username</label>
       <input id="username" name="username" placeholder="username" type="text" />

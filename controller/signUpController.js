@@ -1,4 +1,4 @@
-import { getUser, insertUsers } from "../db/query.js";
+import {  getUser, insertUsers } from "../db/query.js";
 import passport from "passport";
 import { validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
@@ -11,10 +11,8 @@ const signUpPost = async (req, res, next) => {
   const userExist = await getUser(req.body.username);
   console.log(userExist);
   userExist[0] ? errors.push({ msg: "Username is taken" }) : errors;
-  console.log(errors);
 
-  console.log(errors);
-
+  
   if (!(errors.length === 0)) {
     return res.status(400).render("sign-up-form", { errors });
   }

@@ -10,7 +10,7 @@ signUpRouter.post(
   body("password").isLength({ min: 5 }).withMessage("Password is too short"),
   body("username").notEmpty().withMessage("Username must not be empty"),
   body("username").escape(),
-  body("password").notEmpty().withMessage("Username must not be empty"),
+  body("password").notEmpty().withMessage("Password must not be empty"),
   body("password").escape(),
   body("passwordConfirmation").custom((value, { req }) => {
     if (value !== req.body.password) {
