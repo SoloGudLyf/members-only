@@ -8,8 +8,7 @@
     <h1>Sign Up</h1>
 
     <form action="/sign-up" method="POST">
-      <% errors.forEach((error)=>{%> <%- include('error',{error}); %>
-      <%});%>
+      <% errors.forEach((error)=>{%> <%- include('error',{error}); %> <%});%>
       <label for="username"
         >Username: <input type="text" name="username" id="username"
       /></label>

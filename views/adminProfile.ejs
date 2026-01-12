@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Profile</title>
+  </head>
+  <body>
+    <h1>Welcome back admin <%= user.username%></h1>
+    <p><a href="/create-post">Create Post</a> <a href="/logout">Logout</a></p>
+    <h2>Posts</h2>
+    <% usersPosts.forEach((post)=>{%> <%- include('post(admin)',{post}); %> <%});%>
+  </body>
+</html>
