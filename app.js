@@ -1,19 +1,26 @@
-/////// app.js
-require("dotenv").config();
-const path = require("node:path");
-const { pool } = require("./db/pool.js");
-const bcrypt = require("bcryptjs");
-const express = require("express");
-const session = require("express-session");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const { indexRouter } = require("./routes/homeRouter.js");
-const { signUpRouter } = require("./routes/signUpRouter.js");
-const { logoutRouter } = require("./routes/logoutRouter.js");
-const { loginRouter } = require("./routes/loginRouter.js");
-const { createPostRouter } = require("./routes/createPostRouter.js");
+import "dotenv/config";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import express from "express";
+import session from "express-session";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+import bcrypt from "bcryptjs";
+
+// Local Imports (Ensure you include the .js extension)
+import { pool } from "./db/pool.js";
+import { indexRouter } from "./routes/homeRouter.js";
+import { signUpRouter } from "./routes/signUpRouter.js";
+import { logoutRouter } from "./routes/logoutRouter.js";
+import { loginRouter } from "./routes/loginRouter.js";
+import { createPostRouter } from "./routes/createPostRouter.js";
+
+// Recreate __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -24,6 +31,8 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+app.use(passport.initialize()); // Good practice to include this
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
@@ -42,16 +51,16 @@ passport.use(
         [username]
       );
       const user = rows[0];
-      user, password;
-      const match = await bcrypt.compare(password, user.password);
-      match;
 
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
+
+      const match = await bcrypt.compare(password, user.password);
       if (!match) {
         return done(null, false, { message: "Incorrect password" });
       }
+
       return done(null, user);
     } catch (err) {
       return done(err);
@@ -64,23 +73,19 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  id;
-
   try {
-    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
-      id,
-    ]);
+    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
     const user = rows[0];
-
     done(null, user);
   } catch (err) {
     done(err);
   }
 });
 
-app.listen(3000, (error) => {
-  if (error) {
-    throw error;
-  }
-  console.log("app listening on port 3000!");
+const assetsPath = path.join(__dirname, "public");
+app.use(express.static(assetsPath));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}!`);
 });
