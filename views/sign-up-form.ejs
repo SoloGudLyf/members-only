@@ -10,18 +10,22 @@
     <form action="/sign-up" method="POST">
       <% errors.forEach((error)=>{%> <%- include('error',{error}); %> <%});%>
       <label for="username"
-        >Username: <input type="text" name="username" id="username"
+        >Username: <input type="text" name="username" required id="username"
       /></label>
       <label for="password">Password: </label>
-      <input id="password" name="password" type="password" />
+      <input required id="password" name="password" type="password" />
       <label for="passwordConfirmation"
         >Confirm password:
         <input
+          required
           type="password"
           name="passwordConfirmation"
           id="passwordConfirmation"
       /></label>
-
+      <label for="adminPasscode">
+        Admin Passcode (Admins only):
+        <input type="password" name="adminPasscode" id="adminPasscode"
+      /></label>
       <button type="submit">Sign Up</button>
     </form>
   </body>

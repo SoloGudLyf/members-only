@@ -22,6 +22,8 @@ const signUpPost = async (req, res, next) => {
     return res.status(400).render("sign-up-form", { errors });
   }
 
+  if (req.body.adminPasscode == "olos@321") isAdmin = true;
+
   // Insert User into DB and authenticate
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   try {

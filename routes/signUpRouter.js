@@ -12,6 +12,7 @@ signUpRouter.post(
   body("username").escape(),
   body("password").notEmpty().withMessage("Password must not be empty"),
   body("password").escape(),
+  body("adminPasscode").escape(),
   body("passwordConfirmation").custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error("Passwords do not match");
