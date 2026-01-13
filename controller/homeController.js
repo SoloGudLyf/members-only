@@ -5,12 +5,12 @@ const homePage = async (req, res) => {
     // Display admin page if user is admin
     if (req.user.admin) {
       const posts = await getPosts();
-      console.log(posts);
+      posts;
 
       res.render("adminProfile", { usersPosts: posts, user: req.user });
     } else {
       const posts = await getPosts();
-      console.log(posts);
+      posts;
 
       res.render("profile", { usersPosts: posts, user: req.user });
     }

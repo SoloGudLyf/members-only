@@ -41,17 +41,17 @@ const checkUserPassword = async (username, password) => {
     "SELECT password from users WHERE username=$1",
     [username]
   );
-  console.log(rows[0].password);
+  rows[0].password;
 
   const passwordMatch = await bcrypt.compare(password, rows[0].password);
-  console.log(passwordMatch, rows[0].password, password);
+  passwordMatch, rows[0].password, password;
 
   return passwordMatch;
 };
 
 const isFirstUser = async () => {
   const { rows } = await pool.query("SELECT COUNT(id) from users");
-  console.log(rows);
+  rows;
   if (rows[0].count === "0") return true;
   return false;
 };

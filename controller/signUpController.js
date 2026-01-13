@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 let isAdmin = false;
 (async function makeFirstUserAdmin() {
   isAdmin = await isFirstUser();
-  console.log(isAdmin);
+  isAdmin;
 })();
 
 const signUpPage = (req, res) => res.render("sign-up-form", { errors: [] });
@@ -15,14 +15,14 @@ const signUpPost = async (req, res, next) => {
   // Get validation result and log to the user
   let errors = validationResult(req).array();
   const userExist = await getUser(req.body.username);
-  console.log(userExist);
+  userExist;
   userExist[0] ? errors.push({ msg: "Username is taken" }) : errors;
 
   if (!(errors.length === 0)) {
     return res.status(400).render("sign-up-form", { errors });
   }
 
-  if (req.body.adminPasscode == "olos@321") isAdmin = true;
+  if (req.body.adminPasscode === process.env.ADMIN_PASSCODE) isAdmin = true;
 
   // Insert User into DB and authenticate
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -32,7 +32,6 @@ const signUpPost = async (req, res, next) => {
       successRedirect: "/home",
       failureRedirect: "/sign-up",
     })(req, res, next);
-    console.log("hi");
   } catch (err) {
     return err;
   }

@@ -42,9 +42,9 @@ passport.use(
         [username]
       );
       const user = rows[0];
-      console.log(user, password);
+      user, password;
       const match = await bcrypt.compare(password, user.password);
-      console.log(match);
+      match;
 
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
@@ -64,7 +64,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  console.log(id);
+  id;
 
   try {
     const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
