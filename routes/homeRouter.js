@@ -4,5 +4,6 @@ import { deletePost, homePage } from "../controller/homeController.js";
 const indexRouter = Router();
 
 indexRouter.get("/home", homePage);
+indexRouter.get("/", homePage);
 indexRouter.post("/home/delete", deletePost);
 export { indexRouter };
