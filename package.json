@@ -5,7 +5,7 @@
   "description": "An express app that allows authenticated users to view extra info about posts.",
   "main": "app.js",
   "scripts": {
-    "start": "node init-db.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/SoloGudLyf/members-only#readme",
   "devDependencies": {
+    "connect-pg-simple": "^10.0.0",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
     "express-session": "^1.18.2",

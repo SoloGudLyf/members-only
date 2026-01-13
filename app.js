@@ -6,16 +6,14 @@ import session from "express-session";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcryptjs";
-
-// Local Imports (Ensure you include the .js extension)
 import { pool } from "./db/pool.js";
+import pgSession from "connect-pg-simple";
 import { indexRouter } from "./routes/homeRouter.js";
 import { signUpRouter } from "./routes/signUpRouter.js";
 import { logoutRouter } from "./routes/logoutRouter.js";
 import { loginRouter } from "./routes/loginRouter.js";
 import { createPostRouter } from "./routes/createPostRouter.js";
 
-// Recreate __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -24,15 +22,24 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+const PostgreSqlStore = pgSession(session);
+
 app.use(
   session({
+    store: new PostgreSqlStore({
+      pool: pool,
+      tableName: "session",
+    }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    },
   })
 );
 
-app.use(passport.initialize()); // Good practice to include this
+app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
@@ -74,7 +81,9 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
+      id,
+    ]);
     const user = rows[0];
     done(null, user);
   } catch (err) {
