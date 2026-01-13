@@ -3,13 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/app.css" />
+    <link rel="stylesheet" href="/app.css" />
     <title>Admin Profile</title>
   </head>
   <body>
-    <h1>Welcome back admin <%= user.username%></h1>
-    <p><a href="/create-post">Create Post</a> <a href="/logout">Logout</a></p>
-    <h2>Posts</h2>
-    <% usersPosts.forEach((post)=>{%> <%- include('post(admin)',{post}); %> <%});%>
+    <header>
+      <p class="nav">
+        <a href="/create-post">Create Post</a> <a href="/logout">Logout</a>
+      </p>
+      <h1>Welcome back admin <%= user.username%></h1>
+    </header>
+    <main>
+      <h2>Posts</h2>
+      <% usersPosts.forEach((post)=>{%> <%- include('post(admin)',{post}); %>
+      <%});%>
+    </main>
   </body>
 </html>

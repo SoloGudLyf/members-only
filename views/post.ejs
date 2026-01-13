@@ -2,7 +2,9 @@
   <% if (post.username){%>
   <h3><%=post.username%></h3>
   <%}%> <%if(!post.username){%>
-  <h1>Anonymous</h1>
+  <h3>Anonymous</h3>
   <%}%>
-  <p><%=post.post%></p>
+  <p class="post-info">
+    <%=post.post%><div class="date"><%=post.date%></div>
+  </p>
 </article>

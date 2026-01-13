@@ -1,62 +1,94 @@
 * {
-    line-height: 1.5;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    list-style-type: none;
-  }
-  
-  .navBar {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  h1,
-  h2 {
-    margin: 5px;
-  }
-  
-  label {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    margin: 5px;
-    font-weight: bold;
-  }
-  
-  button {
-    display: block;
-    margin: auto;
-    margin-top: 10px;
-    border-radius: 5px;
-    outline: none;
-    border: 0.5px solid rgba(0, 0, 0, 0.514);
-    background-color: #3f84e5;
-    color: white;
-    padding: 2px 9px;
-  }
-  
-  button:hover {
-    background-color: #1c6fe2;
-    cursor: pointer;
-  }
-  
-  button:focus {
-    background-color: #0060e6;
-  }
-  
-  .message-details {
-    display: flex;
-    gap: 10px;
-    font-size: 1.1rem;
-    align-items: baseline;
-  }
-  
-  .message-details .date {
-    font-size: 0.95rem;
-  }
-  
+  line-height: 1.5;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  list-style-type: none;
+}
+:root {
+  --primary: #6366f1;
+  --primary-hover: #5a52e6;
+  --primary-active: #473eeb;
+  --bg: #f8fafc;
+  --card-bg: #dcfcfaab;
+  --text-main: #20314b;
+  --text-muted: #64748b;
+  --border: #09ecb4;
+  --danger: #ef4444;
+  --success: #22c55e;
+}
+body {
+  width: 70vw;
+  margin: auto;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+a {
+  font-size: 1.2rem;
+  color: var(--text-main);
+  font-weight: 500;
+  margin-left: 1.5rem;
+}
+
+label {
+  display: flex;
+  margin: 5px;
+  gap: 5px;
+}
+form {
+  width: fit-content;
+}
+
+form button {
+  margin-left: 50%;
+  font-size: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.479);
+  padding: 0.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form button:hover {
+  background-color: var(--primary-hover);
+}
+
+form button:active {
+  background-color: var(--primary-active);
+}
+
+input {
+  font-size: 0.95rem;
+}
+
+form .post {
+  margin: 0;
+}
+
+textarea {
+  font-size: 1rem;
+}
+
+.date {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+article {
+  background-color: var(--card-bg);
+  border-radius: 6px;
+  padding: 5px;
+  border: 2px solid var(--border);
+}
+
+.delete-post button {
+  margin-left: 33vw;
+}
