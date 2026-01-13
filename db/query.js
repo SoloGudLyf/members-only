@@ -9,22 +9,22 @@ const insertUsers = async (username, password, time, isAdmin) => {
 };
 
 const getPostsOnly = async () => {
-  const { rows } = await pool.query("SELECT post FROM users_posts");
+  const { rows } = await pool.query("SELECT title,post FROM users_posts");
 
   return rows;
 };
 
 const getPosts = async () => {
   const { rows } = await pool.query(
-    "SELECT users.username,users_posts.post,users_posts.date,users_posts.id FROM users_posts JOIN users ON (users_posts.username=users.id)"
+    "SELECT users.username,users_posts.post,users_posts.date,users_posts.id,title FROM users_posts JOIN users ON (users_posts.username=users.id)"
   );
   return rows;
 };
 
-const insertPost = async (id, post, time) => {
+const insertPost = async (id, post, time, title) => {
   await pool.query(
-    "INSERT INTO users_posts (username,post,date) VALUES($1,$2,$3)",
-    [id, post, time]
+    "INSERT INTO users_posts (username,post,date,title) VALUES($1,$2,$3,$4)",
+    [id, post, time, title]
   );
 };
 

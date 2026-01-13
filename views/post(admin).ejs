@@ -1,10 +1,8 @@
 <article>
-  <% if (post.username){%>
   <h3><%=post.username%></h3>
-  <%}%> <%if(!post.username){%>
-  <h1>Anonymous</h1>
-  <%}%>
   <p class="post-info">
+    <h4><%=post.title%></h4>
+
     <%=post.post%> <div class="date"><%=post.date%></div>
   </p>
   <form class="delete-post" action="/home/delete?deletePost=<%=post.id%>" method="post">

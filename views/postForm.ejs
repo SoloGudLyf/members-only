@@ -13,7 +13,12 @@
     <h1>Create a post</h1>
     <form action="/create-post" method="POST">
       <label for="post">
-        <textarea name="post" required id="post"></textarea>
+        <label for="title"
+          >Title: <input type="text" id="title" name="title" required
+        /></label>
+        <label for="post"
+          >Post: <textarea name="post" required id="post"></textarea>
+        </label>
       </label>
       <button class="post">Post</button>
     </form>
