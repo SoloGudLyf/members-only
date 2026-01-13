@@ -5,7 +5,7 @@
   "description": "An express app that allows authenticated users to view extra info about posts.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node init-db.js"
   },
   "repository": {
     "type": "git",
