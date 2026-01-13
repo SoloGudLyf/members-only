@@ -34,7 +34,7 @@ a {
 }
 
 label {
-  display: flex;
+  display: block;
   margin: 5px;
   gap: 5px;
 }
@@ -68,10 +68,6 @@ input {
   font-size: 0.95rem;
 }
 
-form .post {
-  margin: 0;
-}
-
 textarea {
   font-size: 1rem;
 }
@@ -91,4 +87,8 @@ article {
 
 .delete-post button {
   margin-left: 33vw;
+}
+
+label span {
+  vertical-align: top;
 }
