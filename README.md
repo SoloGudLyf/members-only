@@ -55,11 +55,11 @@ Environment Variables: Create a .env file in the root directory and add the foll
 
 Code snippet
 
-DATABASE_URL=your_postgresql_connection_string
-SESSION_SECRET=your_random_secret_string
-CLUB_PASSCODE=the_secret_to_join
-ADMIN_PASSCODE=the_secret_for_admin
-Database Setup: Run the following SQL commands in your PostgreSQL terminal to create the necessary tables:
+DATABASE_URL=your_postgresql_connection_string   
+SESSION_SECRET=your_random_secret_string   
+CLUB_PASSCODE=the_secret_to_join   
+ADMIN_PASSCODE=the_secret_for_admin   
+Database Setup: Run the following SQL commands in your PostgreSQL terminal to create the necessary tables:   
 
 ```SQL
 
